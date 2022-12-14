@@ -2,6 +2,7 @@
 from tinydb import TinyDB  # for database creation
 from tinydb import Query  # for query lookup
 import bcrypt  # encrypt the passwords
+
 # import os
 to_operate = Query()
 
@@ -13,7 +14,7 @@ def check_value(val):
 
 
 def main_menu_choices():
-    print("Register or Login?\n 1-Register\n 2-Login")
+    print("Register or Login? \n0-Exit\n1-Register\n2-Login\n")
 
 
 username_not_found_counter = 0
@@ -21,6 +22,8 @@ db = TinyDB('C:/Users/xtrop/Desktop/PyProjects/bin/tinydb/db.json')
 while True:
     main_menu_choices()
     answer = int(input("Enter answer: "))
+    if answer == 0:
+        break
     if answer == 1:
         username = input("Enter username /0 to exit/: ")
         if username == "0":
@@ -42,18 +45,18 @@ while True:
             db.insert(new_profile)  # store username and hashed password as JSON
             print("Successfully registered!")
             print("User: {}".format(username))
-#  TO-DO: Make the login menu to check for the password stored in the Database
-if answer == 2:
-    usernameEnter = input("Enter username: ")
-    check_value(usernameEnter)
-    while db.get(to_operate.username == usernameEnter) is None:
-        username_not_found_counter += 1
-        usernameEnter = input("Enter username: ")
-        check = db.get(to_operate.username == usernameEnter)
-        if check is None:
-            print("Username not found!")
-        if check is True:
-            break
-        if username_not_found_counter == 10:
-            print("Too many attempts, restart the console application")
-            break
+    #  TO-DO: Make the login menu to check for the password stored in the Database
+    if answer == 2:
+        usernameEnter = str(input("Enter username: "))
+        check_value(usernameEnter)
+        while db.get(to_operate.username == usernameEnter) is None:
+            username_not_found_counter += 1
+            usernameEnter = input("Enter username: ")
+            check = db.get(to_operate.username == usernameEnter)
+            if check is None:
+                print("Username not found!")
+            if check is True:
+                break
+            if username_not_found_counter == 10:
+                print("Too many attempts, restart the console application")
+                break
