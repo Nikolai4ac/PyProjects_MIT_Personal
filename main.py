@@ -22,6 +22,7 @@ def check_user(value):
             print("Username available!")
             return value
             break
+    return value
 
 
 def main_menu_choices():
