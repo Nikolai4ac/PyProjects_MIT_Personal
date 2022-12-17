@@ -21,6 +21,7 @@ def check_user(value):
         if check_available is None:
             print("Username available!")
             return_value_name = value
+            return return_value_name
             break
 
 
@@ -41,9 +42,12 @@ while True:
         if username == "0":
             break
     while len(username) < 4:
-        username = input("Enter valid username: ")
+        username = input("Enter valid username /0 to exit/: ")
+        if username == "0":
+            break
+            main_menu_choices()
     if len(username) >= 3:
-        check_user(username)
+        returned_username = check_user(username)
         print("_______________________________________________________")
         print("Valid password is a string with more than 8 characters!")
         print("_______________________________________________________")
@@ -57,10 +61,10 @@ while True:
         password = password.encode('utf-8')  # encode the password, so we can encrypt it
         hashed = bcrypt.hashpw(password, bcrypt.gensalt(10))  # encrypt the passwords by 10 rounds of encrypt
         if len(password) >= 8:
-            new_profile = {"username": username, "password": hashed.decode()}
+            new_profile = {"username": returned_username, "password": hashed.decode()}
             db.insert(new_profile)  # store username and hashed password as JSON
             print("Successfully registered!")
-            print("User: {}".format(username))
+            print("User: {}".format(returned_username))
     #  TO-DO: Make the login menu to check for the password stored in the Database
     if answer == 2:
         usernameEnter = str(input("Enter username: "))
