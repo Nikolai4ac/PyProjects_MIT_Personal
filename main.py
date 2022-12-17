@@ -20,8 +20,7 @@ def check_user(value):
         check_available = db.get(to_operate.username == value)
         if check_available is None:
             print("Username available!")
-            return_value_name = value
-            return return_value_name
+            return value
             break
 
 
@@ -46,8 +45,8 @@ while True:
         if username == "0":
             break
             main_menu_choices()
+    returned_username = check_user(username)
     if len(username) >= 3:
-        returned_username = check_user(username)
         print("_______________________________________________________")
         print("Valid password is a string with more than 8 characters!")
         print("_______________________________________________________")
