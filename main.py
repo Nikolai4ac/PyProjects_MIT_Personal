@@ -21,7 +21,6 @@ def check_user(value):
         if check_available is None:
             print("Username available!")
             return value
-            break
     return value
 
 
@@ -45,7 +44,6 @@ while True:
         username = input("Enter valid username /0 to exit/: ")
         if username == "0":
             break
-            main_menu_choices()
     returned_username = check_user(username)
     if len(username) >= 3:
         print("_______________________________________________________")
