@@ -16,7 +16,7 @@ def check_value(val):
 def check_user(value):
     db_user = db.get(where("username") == value)
     while db_user is not None:
-        value = str(input("Enter test: "))
+        value = str(input("Enter new username: "))
         check_available = db.get(to_operate.username == value)
         if check_available is None:
             print("Username available!")
