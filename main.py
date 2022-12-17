@@ -20,6 +20,7 @@ def check_user(value):
         check_available = db.get(to_operate.username == value)
         if check_available is None:
             print("Username available!")
+            return_value_name = value
             break
 
 
@@ -34,24 +35,28 @@ while True:
     if answer == 0:
         break
     if answer == 1:
+        print("Valid username is a string with more than 3 characters!")
+        print("_______________________________________________________")
         username = input("Enter username /0 to exit/: ")
-        check_user(username)
         if username == "0":
             break
-    while len(username) == 0:
+    while len(username) < 4:
         username = input("Enter valid username: ")
+    if len(username) >= 3:
         check_user(username)
-    if len(username) > 0:
+        print("_______________________________________________________")
+        print("Valid password is a string with more than 8 characters!")
+        print("_______________________________________________________")
         password = str(input("Enter password /0 to exit/: "))
-        while len(password) == 0:
+        if password == "0":
+            break
+        while len(password) <= 7:
             password = str(input("Enter valid password /0 to exit/: "))
             if password == "0":
                 break
-        if password == "0":
-            break
         password = password.encode('utf-8')  # encode the password, so we can encrypt it
         hashed = bcrypt.hashpw(password, bcrypt.gensalt(10))  # encrypt the passwords by 10 rounds of encrypt
-        if len(password) > 0:
+        if len(password) >= 8:
             new_profile = {"username": username, "password": hashed.decode()}
             db.insert(new_profile)  # store username and hashed password as JSON
             print("Successfully registered!")
